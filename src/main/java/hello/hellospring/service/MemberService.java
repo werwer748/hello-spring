@@ -4,10 +4,12 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -29,11 +31,11 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         });
         */
-        // => 좀 더 편하게 쓸려면..
-        validateDuplicateMember(member);
+            // => 좀 더 편하게 쓸려면..
+            validateDuplicateMember(member);
 
-        memberRepository.save(member);
-        return member.getId();
+            memberRepository.save(member);
+            return member.getId();
     }
 
     private void validateDuplicateMember(Member member) {
@@ -46,7 +48,7 @@ public class MemberService {
      * 전체 회원 조회
      */
     public List<Member> findMembers() {
-        return memberRepository.findAll();
+            return memberRepository.findAll();
     }
 
     public Optional<Member> findOne(Long memberId) {
